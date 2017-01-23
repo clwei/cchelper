@@ -1,0 +1,8 @@
+name = CC Helper
+description = Computer Center Helper
+core = 7.x
+package = Fields
+dependencies[] = field
+files[] = teachplan.module
+
+stylesheets[all][] = teachplan.css

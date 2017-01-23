@@ -1,0 +1,42 @@
+<?php
+function cchelper_form_alter(&$form, &$form_state, $form_id)
+{
+	if ($form_id !== 'apply_rec_node_form' && $form_id !== 'equipment_node_form')
+		return;
+	static $field_map = [
+		'equipment' => 'field_equip_no', 
+		'applicant' => 'field_applicant', 
+		'equip_model' => 'field_model_type',
+	];
+	if (!is_numeric($nid = arg(3)))
+		return;
+	$node = node_load($nid);
+	if ($field = @$field_map[$node->type]) 
+		$form[$field]['und'][0]['target_id']['#default_value'] = "$node->title ($nid)";
+}
+
+/*
+function cchelper_form_apply_rec_node_form_alter(&$form, &$form_state, $form_id)
+{
+	$nid = arg(3);
+	if (!is_numeric($nid))
+		return;
+	$node = node_load($nid);
+	if ($node->type == 'equipment') {
+		$form['field_equip_no']['und'][0]['target_id']['#default_value'] = "$node->title ($nid)";
+	} else if ($node->type == 'applicant') {
+		$form['field_applicant']['und'][0]['target_id']['#default_value'] = "$node->title ($nid)";
+	}
+}
+
+function cchelper_form_equipment_node_form_alter(&$form, &$form_state, $form_id)
+{
+	$nid = arg(3);
+	if (!is_numeric($nid)) 
+		return;
+	$node = node_load($nid);
+	if ($node->type == 'equip_model') {
+		$form['field_model_type']['und'][0]['target_id']['#default_value'] = "$node->title ($nid)";
+	}
+}
+*/
