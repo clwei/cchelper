@@ -11,7 +11,6 @@ function cchelper_form_alter(&$form, &$form_state, $form_id)
 	if (!is_numeric($nid = arg(3)))
 		return;
 	$node = node_load($nid);
-	// The referencing node type exists.
 	if ($field = @$field_map[$node->type]) 
 		$form[$field]['und'][0]['target_id']['#default_value'] = "$node->title ($nid)";
 }
